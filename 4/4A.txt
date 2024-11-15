@@ -1,0 +1,6 @@
+1. Select * from provinsi_tb;
+2. select kabupaten_tb.*, provinsi_tb.*
+from kabupaten_tb 
+left join provinsi_tb
+on kabupaten_tb.provinsi_id = provinsi_tb.id;
+3. select * from provinsi_tb where pulau = 'Sumatera';

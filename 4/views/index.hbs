@@ -1,0 +1,158 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>Home</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {{#if user}}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Tambah Data
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/data-provinsi-add">Data
+                      Provinsi</a></li>
+                  <li><a class="dropdown-item" href="/data-kabupaten-add">Data
+                      Kabupaten</a></li>
+                </ul>
+              </li>
+            {{/if}}
+
+          </ul>
+          {{#if user}}
+            <div class="d-flex">
+              <h3 style="margin-right:15px">{{user.user_name}}</h3>
+              <form action="/logout" method="post"><button
+                  class="btn btn-outline-danger"
+                  type="submit"
+                >Logout</button></form>
+            </div>
+          {{else}}
+            <div class="d-flex" style="margin-right:15px">
+              <a href="/login"><button
+                  class="btn"
+                  type="submit"
+                >Login</button></a>
+            </div>
+            <div class="d-flex" style="margin-right:15px">
+              <a href="/register"><button
+                  class="btn"
+                  type="submit"
+                >Register</button></a>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 25px;">
+      <h1>Data Provinsi</h1>
+
+      <div class="d-flex flex-row gap-2 mt-5 flex-wrap">
+        {{#each data_provinsi}}
+          <div class="card" style="width: 20rem">
+            <img src="/upload/{{photo}}" class="card-img-top" />
+            <div class="card-body">
+              <h5 >
+              <a
+                href="/detail-prov/{{id}} " class="text-decoration-none text-dark"
+              >{{nama}}</a>
+              </h5>
+              <p class="card-text">
+                {{get_time diresmikan}}
+              </p>
+              {{#if ../user}}
+                <div class="d-flex gap-2" style="height:38px;">
+                  <a
+                    href="/data-provinsi-edit/{{id}}"
+                    class="btn btn-primary"
+                    style="width: 75px; "
+                  >Edit</a>
+                  <form action="/delete-prov/{{id}}" method="post"><button
+                      type="submit"
+                      class="btn btn-danger"
+                    >Delete</button></form>
+                </div>
+              {{/if}}
+
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+    </div>
+
+    <div class="container" style="margin-top: 25px;">
+      <h1>Data Kabupaten</h1>
+
+      <div class="d-flex flex-row gap-2 mt-5 flex-wrap">
+        {{#each data_kabupaten}}
+          <div class="card" style="width: 20rem">
+            <img src="/upload/{{photo}}" class="card-img-top"  />
+            <div class="card-body">
+              <a
+                href="/detail-kab/{{id}}"
+                class="text-decoration-none text-dark"
+              ><h5 class="card-title">{{nama}}</h5></a>
+              <h6>{{namaprovinsi}}</h6>
+              <p class="card-text">
+                Tanggal diresmikan :
+                {{get_time diresmikan}}
+              </p>
+              {{#if ../user}}
+                <div class="d-flex gap-2" style="height:38px;">
+                  <a
+                    href="/data-kabupaten-edit/{{id}}"
+                    class="btn btn-primary"
+                    style="width: 75px; "
+                  >Edit</a>
+                  <form action="/delete-kab/{{id}}" method="post"><button
+                      type="submit"
+                      class="btn btn-danger"
+                    >Delete</button></form>
+                </div>
+              {{/if}}
+
+            </div>
+          </div>
+        {{/each}}
+      </div>
+
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
